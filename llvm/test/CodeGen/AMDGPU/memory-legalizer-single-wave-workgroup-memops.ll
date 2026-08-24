@@ -27,7 +27,6 @@ define amdgpu_kernel void @wg_fence_acq_rel_single32() #0 {
   ;
   ; GFX1250-LABEL: name: wg_fence_acq_rel_single32
   ; GFX1250: bb.0 (%ir-block.0):
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   S_ENDPGM 0
   fence syncscope("workgroup") acq_rel
   ret void
@@ -70,7 +69,6 @@ define amdgpu_kernel void @wg_fence_acq_rel_single64() #1 {
   ;
   ; GFX1250-LABEL: name: wg_fence_acq_rel_single64
   ; GFX1250: bb.0 (%ir-block.0):
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   S_WAIT_LOADCNT_soft 0
   ; GFX1250-NEXT:   S_WAIT_STORECNT_soft 0
   ; GFX1250-NEXT:   S_WAIT_DSCNT_soft 0
@@ -112,7 +110,6 @@ define amdgpu_kernel void @wg_fence_acq_rel_multi() #2 {
   ;
   ; GFX1250-LABEL: name: wg_fence_acq_rel_multi
   ; GFX1250: bb.0 (%ir-block.0):
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   S_WAIT_LOADCNT_soft 0
   ; GFX1250-NEXT:   S_WAIT_STORECNT_soft 0
   ; GFX1250-NEXT:   S_WAIT_DSCNT_soft 0
@@ -155,7 +152,6 @@ define amdgpu_kernel void @wg_fence_acquire_single64() #1 {
   ;
   ; GFX1250-LABEL: name: wg_fence_acquire_single64
   ; GFX1250: bb.0 (%ir-block.0):
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   S_WAIT_LOADCNT_soft 0
   ; GFX1250-NEXT:   S_WAIT_STORECNT_soft 0
   ; GFX1250-NEXT:   S_WAIT_DSCNT_soft 0
@@ -199,7 +195,6 @@ define amdgpu_kernel void @wg_fence_release_single64() #1 {
   ;
   ; GFX1250-LABEL: name: wg_fence_release_single64
   ; GFX1250: bb.0 (%ir-block.0):
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   S_WAIT_LOADCNT_soft 0
   ; GFX1250-NEXT:   S_WAIT_STORECNT_soft 0
   ; GFX1250-NEXT:   S_WAIT_DSCNT_soft 0
@@ -245,7 +240,6 @@ define amdgpu_kernel void @wg_fence_seq_cst_single64() #1 {
   ;
   ; GFX1250-LABEL: name: wg_fence_seq_cst_single64
   ; GFX1250: bb.0 (%ir-block.0):
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   S_WAIT_LOADCNT_soft 0
   ; GFX1250-NEXT:   S_WAIT_STORECNT_soft 0
   ; GFX1250-NEXT:   S_WAIT_DSCNT_soft 0
@@ -295,7 +289,6 @@ define amdgpu_kernel void @wg_ld_seq_cst_single32(ptr addrspace(1) %p) #0 {
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   early-clobber renamable $sgpr0_sgpr1 = S_LOAD_DWORDX2_IMM_ec killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s64) from %ir.p.kernarg.offset, align 4, addrspace 4)
   ; GFX1250-NEXT:   renamable $vgpr0 = V_MOV_B32_e32 0, implicit $exec
   ; GFX1250-NEXT:   dead renamable $vgpr0 = GLOBAL_LOAD_DWORD_SADDR killed renamable $sgpr0_sgpr1, killed renamable $vgpr0, 0, 0, implicit $exec :: ("amdgpu-noclobber" load syncscope("workgroup") seq_cst (s32) from %ir.p.load, addrspace 1)
@@ -375,7 +368,6 @@ define amdgpu_kernel void @wg_ld_seq_cst_single64(ptr addrspace(1) %p) #1 {
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   early-clobber renamable $sgpr0_sgpr1 = S_LOAD_DWORDX2_IMM_ec killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s64) from %ir.p.kernarg.offset, align 4, addrspace 4)
   ; GFX1250-NEXT:   renamable $vgpr0 = V_MOV_B32_e32 0, implicit $exec
   ; GFX1250-NEXT:   S_WAIT_LOADCNT_soft 0
@@ -445,7 +437,6 @@ define amdgpu_kernel void @wg_ld_seq_cst_multi(ptr addrspace(1) %p) #2 {
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   early-clobber renamable $sgpr0_sgpr1 = S_LOAD_DWORDX2_IMM_ec killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s64) from %ir.p.kernarg.offset, align 4, addrspace 4)
   ; GFX1250-NEXT:   renamable $vgpr0 = V_MOV_B32_e32 0, implicit $exec
   ; GFX1250-NEXT:   S_WAIT_LOADCNT_soft 0
@@ -521,7 +512,6 @@ define amdgpu_kernel void @wg_ld_acquire_single64(ptr addrspace(1) %p) #1 {
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   early-clobber renamable $sgpr0_sgpr1 = S_LOAD_DWORDX2_IMM_ec killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s64) from %ir.p.kernarg.offset, align 4, addrspace 4)
   ; GFX1250-NEXT:   renamable $vgpr0 = V_MOV_B32_e32 0, implicit $exec
   ; GFX1250-NEXT:   dead renamable $vgpr0 = GLOBAL_LOAD_DWORD_SADDR killed renamable $sgpr0_sgpr1, killed renamable $vgpr0, 0, 0, implicit $exec :: ("amdgpu-noclobber" load syncscope("workgroup") acquire (s32) from %ir.p.load, addrspace 1)
@@ -572,7 +562,6 @@ define amdgpu_kernel void @wg_ld_monotonic_single64(ptr addrspace(1) %p) #1 {
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   early-clobber renamable $sgpr0_sgpr1 = S_LOAD_DWORDX2_IMM_ec killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s64) from %ir.p.kernarg.offset, align 4, addrspace 4)
   ; GFX1250-NEXT:   renamable $vgpr0 = V_MOV_B32_e32 0, implicit $exec
   ; GFX1250-NEXT:   dead renamable $vgpr0 = GLOBAL_LOAD_DWORD_SADDR killed renamable $sgpr0_sgpr1, killed renamable $vgpr0, 0, 0, implicit $exec :: ("amdgpu-noclobber" load syncscope("workgroup") monotonic (s32) from %ir.p.load, addrspace 1)
@@ -638,7 +627,6 @@ define amdgpu_kernel void @wg_st_seq_cst_single32(ptr addrspace(1) %p, i32 %x) #
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   early-clobber renamable $sgpr0_sgpr1_sgpr2 = S_LOAD_DWORDX3_IMM_ec killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s96) from %ir.p.kernarg.offset, align 4, addrspace 4)
   ; GFX1250-NEXT:   renamable $vgpr0, $vgpr1 = V_DUAL_MOV_B32_e32_X_MOV_B32_e32_gfx1250 0, killed $sgpr2, implicit $exec, implicit $exec, implicit $exec, implicit $exec
   ; GFX1250-NEXT:   S_WAIT_XCNT_soft 0
@@ -724,7 +712,6 @@ define amdgpu_kernel void @wg_st_seq_cst_single64(ptr addrspace(1) %p, i32 %x) #
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   early-clobber renamable $sgpr0_sgpr1_sgpr2 = S_LOAD_DWORDX3_IMM_ec killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s96) from %ir.p.kernarg.offset, align 4, addrspace 4)
   ; GFX1250-NEXT:   renamable $vgpr0, $vgpr1 = V_DUAL_MOV_B32_e32_X_MOV_B32_e32_gfx1250 0, killed $sgpr2, implicit $exec, implicit $exec, implicit $exec, implicit $exec
   ; GFX1250-NEXT:   S_WAIT_LOADCNT_soft 0
@@ -811,7 +798,6 @@ define amdgpu_kernel void @wg_st_seq_cst_multi(ptr addrspace(1) %p, i32 %x) #2 {
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   early-clobber renamable $sgpr0_sgpr1_sgpr2 = S_LOAD_DWORDX3_IMM_ec killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s96) from %ir.p.kernarg.offset, align 4, addrspace 4)
   ; GFX1250-NEXT:   renamable $vgpr0, $vgpr1 = V_DUAL_MOV_B32_e32_X_MOV_B32_e32_gfx1250 0, killed $sgpr2, implicit $exec, implicit $exec, implicit $exec, implicit $exec
   ; GFX1250-NEXT:   S_WAIT_LOADCNT_soft 0
@@ -900,7 +886,6 @@ define amdgpu_kernel void @wg_st_release_single64(ptr addrspace(1) %p, i32 %x) #
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   early-clobber renamable $sgpr0_sgpr1_sgpr2 = S_LOAD_DWORDX3_IMM_ec killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s96) from %ir.p.kernarg.offset, align 4, addrspace 4)
   ; GFX1250-NEXT:   renamable $vgpr0, $vgpr1 = V_DUAL_MOV_B32_e32_X_MOV_B32_e32_gfx1250 0, killed $sgpr2, implicit $exec, implicit $exec, implicit $exec, implicit $exec
   ; GFX1250-NEXT:   S_WAIT_LOADCNT_soft 0
@@ -1072,7 +1057,6 @@ define amdgpu_kernel void @wg_rmw_add_seq_cst_single32(ptr addrspace(1) %p) #0 {
   ; GFX1250-NEXT:   successors: %bb.1(0x40000000), %bb.2(0x40000000)
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   $sgpr0 = S_MOV_B32 $exec_lo
   ; GFX1250-NEXT:   $sgpr1 = S_MOV_B32 $exec_lo
   ; GFX1250-NEXT:   renamable $vgpr0 = V_MBCNT_LO_U32_B32_e64 $sgpr0, 0, implicit $exec
@@ -1267,7 +1251,6 @@ define amdgpu_kernel void @wg_rmw_add_seq_cst_single64(ptr addrspace(1) %p) #1 {
   ; GFX1250-NEXT:   successors: %bb.1(0x40000000), %bb.2(0x40000000)
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   $sgpr0 = S_MOV_B32 $exec_lo
   ; GFX1250-NEXT:   $sgpr1 = S_MOV_B32 $exec_lo
   ; GFX1250-NEXT:   renamable $vgpr0 = V_MBCNT_LO_U32_B32_e64 $sgpr0, 0, implicit $exec
@@ -1482,7 +1465,6 @@ define amdgpu_kernel void @wg_rmw_add_seq_cst_multi(ptr addrspace(1) %p) #2 {
   ; GFX1250-NEXT:   successors: %bb.1(0x40000000), %bb.2(0x40000000)
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   $sgpr0 = S_MOV_B32 $exec_lo
   ; GFX1250-NEXT:   $sgpr1 = S_MOV_B32 $exec_lo
   ; GFX1250-NEXT:   renamable $vgpr0 = V_MBCNT_LO_U32_B32_e64 $sgpr0, 0, implicit $exec
@@ -1590,7 +1572,6 @@ define amdgpu_kernel void @wg_rmw_xchg_acq_rel_single64(ptr addrspace(1) %p, i32
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   early-clobber renamable $sgpr0_sgpr1_sgpr2 = S_LOAD_DWORDX3_IMM_ec killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s96) from %ir.p.kernarg.offset, align 4, addrspace 4)
   ; GFX1250-NEXT:   renamable $vgpr0, $vgpr1 = V_DUAL_MOV_B32_e32_X_MOV_B32_e32_gfx1250 0, killed $sgpr2, implicit $exec, implicit $exec, implicit $exec, implicit $exec
   ; GFX1250-NEXT:   S_WAIT_LOADCNT_soft 0
@@ -1686,7 +1667,6 @@ define amdgpu_kernel void @wg_cmpxchg_acq_rel_monotonic_single64(ptr addrspace(1
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   early-clobber renamable $sgpr0_sgpr1_sgpr2_sgpr3 = S_LOAD_DWORDX4_IMM_ec killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s128) from %ir.p.kernarg.offset, align 4, addrspace 4)
   ; GFX1250-NEXT:   renamable $vgpr2, $vgpr0 = V_DUAL_MOV_B32_e32_X_MOV_B32_e32_e96_gfx1250 0, killed $sgpr3, implicit $exec, implicit $exec, implicit $exec, implicit $exec
   ; GFX1250-NEXT:   $vgpr1 = V_MOV_B32_e32 killed $sgpr2, implicit $exec, implicit $exec
@@ -1783,7 +1763,6 @@ define amdgpu_kernel void @wg_cmpxchg_seq_cst_seq_cst_multi(ptr addrspace(1) %p,
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   early-clobber renamable $sgpr0_sgpr1_sgpr2_sgpr3 = S_LOAD_DWORDX4_IMM_ec killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s128) from %ir.p.kernarg.offset, align 4, addrspace 4)
   ; GFX1250-NEXT:   renamable $vgpr2, $vgpr0 = V_DUAL_MOV_B32_e32_X_MOV_B32_e32_e96_gfx1250 0, killed $sgpr3, implicit $exec, implicit $exec, implicit $exec, implicit $exec
   ; GFX1250-NEXT:   $vgpr1 = V_MOV_B32_e32 killed $sgpr2, implicit $exec, implicit $exec
@@ -1872,7 +1851,6 @@ define amdgpu_kernel void @wg_cmpxchg_acquire_acquire_single64(ptr addrspace(1) 
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   early-clobber renamable $sgpr0_sgpr1_sgpr2_sgpr3 = S_LOAD_DWORDX4_IMM_ec killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s128) from %ir.p.kernarg.offset, align 4, addrspace 4)
   ; GFX1250-NEXT:   renamable $vgpr2, $vgpr0 = V_DUAL_MOV_B32_e32_X_MOV_B32_e32_e96_gfx1250 0, killed $sgpr3, implicit $exec, implicit $exec, implicit $exec, implicit $exec
   ; GFX1250-NEXT:   $vgpr1 = V_MOV_B32_e32 killed $sgpr2, implicit $exec, implicit $exec
@@ -1925,7 +1903,6 @@ define amdgpu_kernel void @lds_wg_ld_seq_cst_single32(ptr addrspace(3) %p) #0 {
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   renamable $sgpr0 = S_LOAD_DWORD_IMM killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s32) from %ir.p.kernarg.offset, addrspace 4)
   ; GFX1250-NEXT:   $vgpr0 = V_MOV_B32_e32 killed $sgpr0, implicit $exec, implicit $exec
   ; GFX1250-NEXT:   dead renamable $vgpr0 = DS_READ_B32_gfx9 killed renamable $vgpr0, 0, 0, implicit $exec :: (load syncscope("workgroup") seq_cst (s32) from %ir.p.load, addrspace 3)
@@ -2006,7 +1983,6 @@ define amdgpu_kernel void @lds_wg_ld_seq_cst_single64(ptr addrspace(3) %p) #1 {
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   renamable $sgpr0 = S_LOAD_DWORD_IMM killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s32) from %ir.p.kernarg.offset, addrspace 4)
   ; GFX1250-NEXT:   $vgpr0 = V_MOV_B32_e32 killed $sgpr0, implicit $exec, implicit $exec
   ; GFX1250-NEXT:   S_WAIT_LOADCNT_soft 0
@@ -2081,7 +2057,6 @@ define amdgpu_kernel void @lds_wg_ld_seq_cst_multi(ptr addrspace(3) %p) #2 {
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   renamable $sgpr0 = S_LOAD_DWORD_IMM killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s32) from %ir.p.kernarg.offset, addrspace 4)
   ; GFX1250-NEXT:   $vgpr0 = V_MOV_B32_e32 killed $sgpr0, implicit $exec, implicit $exec
   ; GFX1250-NEXT:   S_WAIT_LOADCNT_soft 0
@@ -2166,7 +2141,6 @@ define amdgpu_kernel void @lds_wg_st_release_single64(ptr addrspace(3) %p, i32 %
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   early-clobber renamable $sgpr0_sgpr1 = S_LOAD_DWORDX2_IMM_ec killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s64) from %ir.p.kernarg.offset, align 4, addrspace 4)
   ; GFX1250-NEXT:   $vgpr0, $vgpr1 = V_DUAL_MOV_B32_e32_X_MOV_B32_e32_gfx1250 killed $sgpr0, killed $sgpr1, implicit $exec, implicit $exec, implicit $exec, implicit $exec, implicit $exec
   ; GFX1250-NEXT:   S_WAIT_LOADCNT_soft 0
@@ -2350,7 +2324,6 @@ define amdgpu_kernel void @lds_wg_rmw_add_acq_rel_single64(ptr addrspace(3) %p) 
   ; GFX1250-NEXT:   successors: %bb.1(0x40000000), %bb.2(0x40000000)
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   $sgpr0 = S_MOV_B32 $exec_lo
   ; GFX1250-NEXT:   $sgpr1 = S_MOV_B32 $exec_lo
   ; GFX1250-NEXT:   renamable $vgpr0 = V_MBCNT_LO_U32_B32_e64 $sgpr0, 0, implicit $exec
@@ -2460,7 +2433,6 @@ define amdgpu_kernel void @lds_wg_cmpxchg_acq_rel_monotonic_single64(ptr addrspa
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   early-clobber renamable $sgpr0_sgpr1_sgpr2 = S_LOAD_DWORDX3_IMM_ec killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s96) from %ir.p.kernarg.offset, align 4, addrspace 4)
   ; GFX1250-NEXT:   $vgpr0, $vgpr1 = V_DUAL_MOV_B32_e32_X_MOV_B32_e32_gfx1250 killed $sgpr0, killed $sgpr2, implicit $exec, implicit $exec, implicit $exec, implicit $exec, implicit $exec
   ; GFX1250-NEXT:   $vgpr2 = V_MOV_B32_e32 killed $sgpr1, implicit $exec, implicit $exec
@@ -2493,7 +2465,6 @@ define amdgpu_kernel void @lds_wg_ld_unordered_single64(ptr addrspace(3) %p) #1 
   ;
   ; GFX1250-LABEL: name: lds_wg_ld_unordered_single64
   ; GFX1250: bb.0 (%ir-block.0):
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   S_ENDPGM 0
   %v = load atomic i32, ptr addrspace(3) %p syncscope("workgroup") unordered, align 4
   ret void
@@ -2573,7 +2544,6 @@ define amdgpu_kernel void @lds_wg_cmpxchg_monotonic_acquire_single64(ptr addrspa
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   early-clobber renamable $sgpr0_sgpr1_sgpr2 = S_LOAD_DWORDX3_IMM_ec killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s96) from %ir.p.kernarg.offset, align 4, addrspace 4)
   ; GFX1250-NEXT:   $vgpr0, $vgpr1 = V_DUAL_MOV_B32_e32_X_MOV_B32_e32_gfx1250 killed $sgpr0, killed $sgpr2, implicit $exec, implicit $exec, implicit $exec, implicit $exec, implicit $exec
   ; GFX1250-NEXT:   $vgpr2 = V_MOV_B32_e32 killed $sgpr1, implicit $exec, implicit $exec
@@ -2652,7 +2622,6 @@ define amdgpu_kernel void @flat_wg_ld_acquire_single64(ptr addrspace(0) %p) #1 {
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   early-clobber renamable $sgpr0_sgpr1 = S_LOAD_DWORDX2_IMM_ec killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s64) from %ir.p.kernarg.offset, align 4, addrspace 4)
   ; GFX1250-NEXT:   renamable $vgpr0 = V_MOV_B32_e32 0, implicit $exec
   ; GFX1250-NEXT:   dead renamable $vgpr0 = FLAT_LOAD_DWORD_SADDR killed renamable $sgpr0_sgpr1, killed renamable $vgpr0, 0, 0, implicit $exec, implicit $flat_scr :: (load syncscope("workgroup") acquire (s32) from %ir.p.load)
@@ -2741,7 +2710,6 @@ define amdgpu_kernel void @flat_wg_st_seq_cst_multi(ptr addrspace(0) %p, i32 %x)
   ; GFX1250: bb.0 (%ir-block.0):
   ; GFX1250-NEXT:   liveins: $sgpr4_sgpr5
   ; GFX1250-NEXT: {{  $}}
-  ; GFX1250-NEXT:   S_SETREG_IMM32_B32 1, 1601, implicit-def $mode, implicit $mode
   ; GFX1250-NEXT:   early-clobber renamable $sgpr0_sgpr1_sgpr2 = S_LOAD_DWORDX3_IMM_ec killed renamable $sgpr4_sgpr5, 36, 32 :: (dereferenceable invariant load (s96) from %ir.p.kernarg.offset, align 4, addrspace 4)
   ; GFX1250-NEXT:   renamable $vgpr0, $vgpr1 = V_DUAL_MOV_B32_e32_X_MOV_B32_e32_gfx1250 0, killed $sgpr2, implicit $exec, implicit $exec, implicit $exec, implicit $exec
   ; GFX1250-NEXT:   S_WAIT_LOADCNT_soft 0

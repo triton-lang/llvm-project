@@ -81,6 +81,9 @@ define amdgpu_kernel void @workgroup_acquire_fence() {
 ; GFX1250-LABEL: workgroup_acquire_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_wait_dscnt 0x0
 ; GFX1250-NEXT:    s_endpgm
 entry:
@@ -155,6 +158,9 @@ define amdgpu_kernel void @workgroup_release_fence() {
 ; GFX1250-LABEL: workgroup_release_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_wait_dscnt 0x0
 ; GFX1250-NEXT:    s_endpgm
 entry:
@@ -229,6 +235,9 @@ define amdgpu_kernel void @workgroup_acq_rel_fence() {
 ; GFX1250-LABEL: workgroup_acq_rel_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_wait_dscnt 0x0
 ; GFX1250-NEXT:    s_endpgm
 entry:
@@ -303,6 +312,9 @@ define amdgpu_kernel void @workgroup_seq_cst_fence() {
 ; GFX1250-LABEL: workgroup_seq_cst_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_wait_dscnt 0x0
 ; GFX1250-NEXT:    s_endpgm
 entry:
@@ -366,6 +378,9 @@ define amdgpu_kernel void @workgroup_one_as_acquire_fence() {
 ; GFX1250-LABEL: workgroup_one_as_acquire_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_endpgm
 entry:
   fence syncscope("workgroup-one-as") acquire, !mmra !{!"amdgpu-synchronize-as", !"local"}
@@ -428,6 +443,9 @@ define amdgpu_kernel void @workgroup_one_as_release_fence() {
 ; GFX1250-LABEL: workgroup_one_as_release_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_endpgm
 entry:
   fence syncscope("workgroup-one-as") release, !mmra !{!"amdgpu-synchronize-as", !"local"}
@@ -490,6 +508,9 @@ define amdgpu_kernel void @workgroup_one_as_acq_rel_fence() {
 ; GFX1250-LABEL: workgroup_one_as_acq_rel_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_endpgm
 entry:
   fence syncscope("workgroup-one-as") acq_rel, !mmra !{!"amdgpu-synchronize-as", !"local"}
@@ -552,6 +573,9 @@ define amdgpu_kernel void @workgroup_one_as_seq_cst_fence() {
 ; GFX1250-LABEL: workgroup_one_as_seq_cst_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_endpgm
 entry:
   fence syncscope("workgroup-one-as") seq_cst, !mmra !{!"amdgpu-synchronize-as", !"local"}
@@ -625,6 +649,9 @@ define amdgpu_kernel void @agent_acquire_fence() {
 ; GFX1250-LABEL: agent_acquire_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_wait_dscnt 0x0
 ; GFX1250-NEXT:    s_endpgm
 entry:
@@ -699,6 +726,9 @@ define amdgpu_kernel void @agent_release_fence() {
 ; GFX1250-LABEL: agent_release_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_wait_dscnt 0x0
 ; GFX1250-NEXT:    s_endpgm
 entry:
@@ -773,6 +803,9 @@ define amdgpu_kernel void @agent_acq_rel_fence() {
 ; GFX1250-LABEL: agent_acq_rel_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_wait_dscnt 0x0
 ; GFX1250-NEXT:    s_endpgm
 entry:
@@ -847,6 +880,9 @@ define amdgpu_kernel void @agent_seq_cst_fence() {
 ; GFX1250-LABEL: agent_seq_cst_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_wait_dscnt 0x0
 ; GFX1250-NEXT:    s_endpgm
 entry:
@@ -910,6 +946,9 @@ define amdgpu_kernel void @agent_one_as_acquire_fence() {
 ; GFX1250-LABEL: agent_one_as_acquire_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_endpgm
 entry:
   fence syncscope("agent-one-as") acquire, !mmra !{!"amdgpu-synchronize-as", !"local"}
@@ -972,6 +1011,9 @@ define amdgpu_kernel void @agent_one_as_release_fence() {
 ; GFX1250-LABEL: agent_one_as_release_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_endpgm
 entry:
   fence syncscope("agent-one-as") release, !mmra !{!"amdgpu-synchronize-as", !"local"}
@@ -1034,6 +1076,9 @@ define amdgpu_kernel void @agent_one_as_acq_rel_fence() {
 ; GFX1250-LABEL: agent_one_as_acq_rel_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_endpgm
 entry:
   fence syncscope("agent-one-as") acq_rel, !mmra !{!"amdgpu-synchronize-as", !"local"}
@@ -1096,6 +1141,9 @@ define amdgpu_kernel void @agent_one_as_seq_cst_fence() {
 ; GFX1250-LABEL: agent_one_as_seq_cst_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_endpgm
 entry:
   fence syncscope("agent-one-as") seq_cst, !mmra !{!"amdgpu-synchronize-as", !"local"}
@@ -1169,6 +1217,9 @@ define amdgpu_kernel void @system_acquire_fence() {
 ; GFX1250-LABEL: system_acquire_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_wait_dscnt 0x0
 ; GFX1250-NEXT:    s_endpgm
 entry:
@@ -1243,6 +1294,9 @@ define amdgpu_kernel void @system_release_fence() {
 ; GFX1250-LABEL: system_release_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_wait_dscnt 0x0
 ; GFX1250-NEXT:    s_endpgm
 entry:
@@ -1317,6 +1371,9 @@ define amdgpu_kernel void @system_acq_rel_fence() {
 ; GFX1250-LABEL: system_acq_rel_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_wait_dscnt 0x0
 ; GFX1250-NEXT:    s_endpgm
 entry:
@@ -1391,6 +1448,9 @@ define amdgpu_kernel void @system_seq_cst_fence() {
 ; GFX1250-LABEL: system_seq_cst_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_wait_dscnt 0x0
 ; GFX1250-NEXT:    s_endpgm
 entry:
@@ -1454,6 +1514,9 @@ define amdgpu_kernel void @system_one_as_acquire_fence() {
 ; GFX1250-LABEL: system_one_as_acquire_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_endpgm
 entry:
   fence syncscope("one-as") acquire, !mmra !{!"amdgpu-synchronize-as", !"local"}
@@ -1516,6 +1579,9 @@ define amdgpu_kernel void @system_one_as_release_fence() {
 ; GFX1250-LABEL: system_one_as_release_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_endpgm
 entry:
   fence syncscope("one-as") release, !mmra !{!"amdgpu-synchronize-as", !"local"}
@@ -1578,6 +1644,9 @@ define amdgpu_kernel void @system_one_as_acq_rel_fence() {
 ; GFX1250-LABEL: system_one_as_acq_rel_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_endpgm
 entry:
   fence syncscope("one-as") acq_rel, !mmra !{!"amdgpu-synchronize-as", !"local"}
@@ -1640,6 +1709,9 @@ define amdgpu_kernel void @system_one_as_seq_cst_fence() {
 ; GFX1250-LABEL: system_one_as_seq_cst_fence:
 ; GFX1250:       ; %bb.0: ; %entry
 ; GFX1250-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GFX1250-NEXT:    s_mov_b64 s[64:65], 0
+; GFX1250-NEXT:    v_nop
+; GFX1250-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GFX1250-NEXT:    s_endpgm
 entry:
   fence syncscope("one-as") seq_cst, !mmra !{!"amdgpu-synchronize-as", !"local"}

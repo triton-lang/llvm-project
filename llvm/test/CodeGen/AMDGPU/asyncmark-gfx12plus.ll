@@ -137,6 +137,9 @@ define amdgpu_kernel void @test_pipelined_loop(ptr addrspace(1) %foo, ptr addrsp
 ; SDAG-LABEL: test_pipelined_loop:
 ; SDAG:       ; %bb.0: ; %prolog
 ; SDAG-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; SDAG-NEXT:    s_mov_b64 s[64:65], 0
+; SDAG-NEXT:    v_nop
+; SDAG-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; SDAG-NEXT:    s_clause 0x1
 ; SDAG-NEXT:    s_load_b96 s[0:2], s[4:5], 0x24 nv
 ; SDAG-NEXT:    s_load_b32 s3, s[4:5], 0x44 nv
@@ -190,6 +193,9 @@ define amdgpu_kernel void @test_pipelined_loop(ptr addrspace(1) %foo, ptr addrsp
 ; GISEL-LABEL: test_pipelined_loop:
 ; GISEL:       ; %bb.0: ; %prolog
 ; GISEL-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GISEL-NEXT:    s_mov_b64 s[64:65], 0
+; GISEL-NEXT:    v_nop
+; GISEL-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GISEL-NEXT:    s_clause 0x1
 ; GISEL-NEXT:    s_load_b96 s[0:2], s[4:5], 0x24 nv
 ; GISEL-NEXT:    s_load_b32 s3, s[4:5], 0x44 nv
@@ -307,6 +313,9 @@ define amdgpu_kernel void @test_pipelined_loop_with_global(ptr addrspace(1) %foo
 ; SDAG-LABEL: test_pipelined_loop_with_global:
 ; SDAG:       ; %bb.0: ; %prolog
 ; SDAG-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; SDAG-NEXT:    s_mov_b64 s[64:65], 0
+; SDAG-NEXT:    v_nop
+; SDAG-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; SDAG-NEXT:    s_clause 0x1
 ; SDAG-NEXT:    s_load_b96 s[8:10], s[4:5], 0x24 nv
 ; SDAG-NEXT:    s_load_b128 s[0:3], s[4:5], 0x34 nv
@@ -392,6 +401,9 @@ define amdgpu_kernel void @test_pipelined_loop_with_global(ptr addrspace(1) %foo
 ; GISEL-LABEL: test_pipelined_loop_with_global:
 ; GISEL:       ; %bb.0: ; %prolog
 ; GISEL-NEXT:    s_setreg_imm32_b32 hwreg(HW_REG_WAVE_MODE, 25, 1), 1 ; msbs: dst=0 src0=0 src1=0 src2=0
+; GISEL-NEXT:    s_mov_b64 s[64:65], 0
+; GISEL-NEXT:    v_nop
+; GISEL-NEXT:    global_prefetch_b8 v0, s[64:65] scope:SCOPE_SE
 ; GISEL-NEXT:    s_clause 0x2
 ; GISEL-NEXT:    s_load_b96 s[8:10], s[4:5], 0x24 nv
 ; GISEL-NEXT:    s_load_b128 s[0:3], s[4:5], 0x34 nv

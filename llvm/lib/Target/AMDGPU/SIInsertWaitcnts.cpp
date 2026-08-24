@@ -2776,7 +2776,8 @@ bool SIInsertWaitcnts::generateWaitcntInstBefore(
   // waits on VA_VDST if the instruction it would precede is not a VALU
   // instruction, since hardware handles VALU->VGPR->VALU hazards in
   // expert scheduling mode.
-  if (TII.isVALU(MI))
+  // TODO: LDSDMA are marked as VALU but we need to treat them as vmem
+  if (TII.isVALU(MI) && !SIInstrInfo::isLDSDMA(MI))
     Wait.set(AMDGPU::VA_VDST, ~0u);
 
   // Since the translation for VMEM addresses occur in-order, we can apply the
@@ -2856,7 +2857,8 @@ bool SIInsertWaitcnts::generateWaitcnt(AMDGPU::Waitcnt Wait,
 
 std::optional<WaitEventType>
 SIInsertWaitcnts::getExpertSchedulingEventType(const MachineInstr &Inst) const {
-  if (TII.isVALU(Inst)) {
+  // TODO: LDSDMA are marked as VALU but we need to treat them as vmem
+  if (TII.isVALU(Inst) && !SIInstrInfo::isLDSDMA(Inst)) {
     // Core/Side-, DP-, XDL- and TRANS-MACC VALU instructions complete
     // out-of-order with respect to each other, so each of these classes
     // has its own event.
@@ -4019,6 +4021,41 @@ bool SIInsertWaitcnts::run() {
             .addImm(AMDGPU::SendMsg::ID_DEALLOC_VGPRS_GFX11Plus);
         Modified = true;
       }
+    }
+  }
+
+  if (MFI->isEntryFunction()) {
+    MachineBasicBlock::iterator InsertPt = EntryBB.begin();
+
+    if (ST.hasWaitXcnt()) {
+      // Set REPLAY_MODE (bit 25) in MODE register to enable multi-group XNACK
+      // replay. This aligns hardware behavior with the compiler's s_wait_xcnt
+      // insertion logic, which assumes multi-group mode by default.
+      unsigned RegEncoding =
+          AMDGPU::Hwreg::HwregEncoding::encode(AMDGPU::Hwreg::ID_MODE, 25, 1);
+      BuildMI(EntryBB, InsertPt, DebugLoc(),
+              TII.get(AMDGPU::S_SETREG_IMM32_B32))
+          .addImm(1)
+          .addImm(RegEncoding);
+      Modified = true;
+    }
+
+    if (ST.hasRequiresInitialUnclausedVmem()) {
+      // Hardware entrypoints must begin with a specific sequence:
+      //   S_MOV_B64 S[64:65], 0
+      //   V_NOP
+      //   GLOBAL_PREFETCH_B8 V0, S[64:65] SCOPE:SCOPE_SE TH:TH_LOAD_RT
+      BuildMI(EntryBB, InsertPt, DebugLoc(), TII.get(AMDGPU::S_MOV_B64),
+              AMDGPU::SGPR64_SGPR65)
+          .addImm(0);
+      BuildMI(EntryBB, InsertPt, DebugLoc(), TII.get(AMDGPU::V_NOP_e32));
+      BuildMI(EntryBB, InsertPt, DebugLoc(),
+              TII.get(AMDGPU::GLOBAL_PREFETCH_B8_SADDR))
+          .addReg(AMDGPU::SGPR64_SGPR65)
+          .addReg(AMDGPU::VGPR0, RegState::Undef)
+          .addImm(0)
+          .addImm(AMDGPU::CPol::SCOPE_SE | AMDGPU::CPol::TH_RT);
+      Modified = true;
     }
   }
 
